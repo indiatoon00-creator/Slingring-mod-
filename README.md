@@ -1,4 +1,4 @@
-name: Build JAR
+name: Build Minecraft Mod JAR
 
 on:
   push:
@@ -17,12 +17,15 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
+    - name: Make gradlew executable
+      run: chmod +x gradlew
+
     - name: Build with Gradle
       run: ./gradlew build
 
     - name: Upload JAR Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: my-jar-file
+        name: minecraft-mod-jar
         path: build/libs/*.jar
         
