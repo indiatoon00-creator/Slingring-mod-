@@ -1,17 +1,15 @@
-name: Build Minecraft Mod
+name: Build JAR
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch:
+    branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
     - name: Set up JDK 17
       uses: actions/setup-java@v4
@@ -19,15 +17,12 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@v3
-
     - name: Build with Gradle
-      run: gradle build
+      run: ./gradlew build
 
-    - name: Upload Mod Artifact
+    - name: Upload JAR Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: slingring-mod-jar
+        name: my-jar-file
         path: build/libs/*.jar
         
